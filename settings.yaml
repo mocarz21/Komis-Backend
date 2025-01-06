@@ -1,0 +1,14 @@
+global:
+  database:
+    address: 127.0.0.1  # Adres lokalny dla bazy danych
+    port: 5432          # Domyślny port PostgreSQL
+    database: "Projekt grupowy"  # Nazwa Twojej bazy danych
+    username: "postgres"         # Zmień na użytkownika z uprawnieniami do bazy
+    password: "Adasiek1!"    # Ustaw swoje hasło do bazy danych
+
+  security:
+    secret_key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
+    algorithm: HS256
+  
+  server:
+    port: 7474  # Port serwera FastAPI

@@ -17,8 +17,6 @@ with open("settings.yaml", "r") as f:
 
 SECRET_KEY  = config['global']['security']['secret_key']
 ALGORITHM   = config['global']['security']['algorithm']
-UI_FOLDER = "ui"
-UI_PATH = os.path.join(os.getcwd(), UI_FOLDER)
 
 app = FastAPI(lifespan = lifespan)
 app.include_router(router)

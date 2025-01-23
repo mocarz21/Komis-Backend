@@ -14,7 +14,6 @@ port = config['global']['database']['port']
 database = config['global']['database']['database']
 
 global_dsn = f"postgres://{username}:{password}@{address}:{port}/{database}"
-print(global_dsn)
 
 class Database:
     def __init__(self):

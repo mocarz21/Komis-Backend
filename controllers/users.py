@@ -13,6 +13,44 @@ class User(BaseModel):
     phone: int
     name: float
 
+class LoginData(BaseModel):
+    login: str
+    password: str
+
+
+@router.post("/login")
+async def login_user(login_data: LoginData, request: Request):
+    try:
+        async with request.app.state.pgpool.acquire() as connection:
+            query = "SELECT * FROM users WHERE login = $1"
+            row = await connection.fetchrow(query, login_data.login)
+            
+            if not row:
+                raise HTTPException(status_code=401, detail="Nieprawidłowy login lub hasło")
+            
+            user = dict(row)
+
+            if user["password_hash"] != login_data.password:
+                raise HTTPException(status_code=401, detail="Nieprawidłowy login lub hasło")
+
+
+            return {
+                "id": user["id"],
+                "login": user["login"],
+                "email": user["email"]
+                # Możesz dodać więcej pól w zależności od potrzeb
+            }
+
+    except HTTPException:
+        # Jeśli wyrzuciliśmy HTTPException, to przepuszczamy go dalej
+        raise
+    except Exception as e:
+        print(f"Błąd podczas logowania: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail="Wystąpił błąd po stronie serwera podczas logowania"
+        )
+
 @router.get("/", response_model =List[dict])
 async def get_users(request: Request):
   try:

@@ -14,6 +14,7 @@ class Car(BaseModel):
     year: int
     price: float
 
+
 @router.get("/", response_model=List[dict])
 async def get_all_cars(request: Request):
   try:
